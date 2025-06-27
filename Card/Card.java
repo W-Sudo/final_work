@@ -5,7 +5,7 @@ public class Card{
     public Card(int n0){
         n=n0;
         value=n/4+1;
-        switch (num % 4) {
+        switch (n % 4) {
             case 0: this.mark = "spade"; break;
             case 1: this.mark = "club"; break;
             case 2: this.mark = "heart"; break;
@@ -17,5 +17,19 @@ public class Card{
     }
     public String getMark(){
         return mark;
+    }
+    public String getGUI(){
+        String markGUI;
+        if(this.mark.equals("spade")){
+            markGUI="♠";
+        }else if(this.mark.equals("club")){
+            markGUI="♣";
+        }else if(this.mark.equals("heart")){
+            markGUI="♥";
+        }else{
+            markGUI="♦";
+        }
+        String graphic = markGUI+this.value;
+        return graphic;
     }
 }
