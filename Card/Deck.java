@@ -19,11 +19,11 @@ public class Deck{
             deck[i]=new Card(arr[i]);
         }
     }
-    public drawCard(){
+    public Card drawCard(){
         n=n-1;
         return deck[n];
     }
-    public reset(){
+    public Deck reset(){
         Deck new_deck = new Deck();
         return new_deck;
     }
