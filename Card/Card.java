@@ -18,7 +18,7 @@ public class Card{
     public String getMark(){
         return mark;
     }
-    public String getGUI(){
+    public String toString(){
         String markGUI;
         if(this.mark.equals("spade")){
             markGUI="♠";
