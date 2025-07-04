@@ -1,3 +1,5 @@
+package model;
+
 public class Card{
     private int value;//カードの数値
     private String mark;//カードのマーク

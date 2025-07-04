@@ -1,4 +1,6 @@
+package model;
 import java.util.*;
+
 public class Deck{
     private int n = 52;
     private final Card[] deck = new Card[n];
