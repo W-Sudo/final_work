@@ -14,13 +14,13 @@ public class Card{
             case 3: this.mark = "diamond"; break;
         }
     }
-    public int getValue(){
+    public int getValue(){//値のゲッターメソッド
         return value;
     }
-    public String getMark(){
+    public String getMark(){//マークのゲッターメソッド
         return mark;
     }
-    public String toString(){
+    public String toString(){//GUIのためマークと値をまとめて文字列にして返すメソッド
         String markGUI;
         if(this.mark.equals("spade")){
             markGUI="♠";
