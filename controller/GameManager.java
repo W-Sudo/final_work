@@ -18,8 +18,8 @@ public class GameManager {
 
     public void startGame(){
         deck = new Deck();
-        player = new Player();
-        dealer = new Dealer();
+        player = new Player(deck);
+        dealer = new Dealer(deck);
         
         //山札から2枚引く
         player.hit();
