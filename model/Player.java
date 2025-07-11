@@ -2,34 +2,36 @@ package model;
 
 public class Player {
     private Deck deck;
-    public Player(Deck deck) {
+    public Player(Deck deck) {//GameManagerからDeckクラスの参照値を得る
         this.deck = deck;
     }
-    ArrayList<Card> hands = new ArrayList<>();
-    private int score=0;
-    private boolean haveA=false;
-    private boolean convA=false;
+    ArrayList<Card> hands = new ArrayList<>();//手札
+    private int score=0; //手札の合計
+    private boolean haveA=false; //Aを入手したかを見る変数
+    private boolean convA=false; //Aが1として計算されたかを見る変数
     void calcScore(Card c){
-        if(!haveA&&c.getValue()==1){
+        if(!haveA&&c.getValue()==1){ //Aを入手したときの手札計算
             haveA=true;
             score=score+11;
-        }else{
+        }else if(c.getValue()>10){   //絵札を入手したときの手札計算
+            score=score+10;
+        }else{                       //その他のカードを入手したときの手札計算
             score=score+c.getValue();
         }
-        if(score>21&&haveA&&!convA){
+        if(score>21&&haveA&&!convA){ //Aを11から1にする処理
             score=score-10;
             convA=true;
         }
     }
-    boolean isBurst(){
+    boolean isBurst(){  //バーストしたかを返す処理
         return score>21;
     }
-    Card hit(){
+    Card hit(){//カードを引く処理
         hands.add(deck.drawCard());
         calcScore(hands.get(hands.size()-1));
         return hands.get(hands.size()-1);
     }
-    int getScore(){
+    int getScore(){//スコアを返す処理
         return score;
     }
 
