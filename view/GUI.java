@@ -3,6 +3,7 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import controller.GameManager;
 
 public class GUI {
     // 属性（フィールド）
