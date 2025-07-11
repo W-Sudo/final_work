@@ -2,6 +2,9 @@ package controller;
 
 import final_work.model.*;
 import final_work.view.GUI;
+import model.Dealer;
+import model.Deck;
+import model.Player;
 
 public class GameManager {
     private Deck deck;
