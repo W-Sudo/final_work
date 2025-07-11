@@ -9,7 +9,7 @@ public class Player {
     protected int score=0; //手札の合計
     protected boolean haveA=false; //Aを入手したかを見る変数
     protected boolean convA=false; //Aが1として計算されたかを見る変数
-    void calcScore(Card c){
+    public void calcScore(Card c){
         if(!haveA&&c.getValue()==1){ //Aを入手したときの手札計算
             haveA=true;
             score=score+11;
@@ -23,18 +23,18 @@ public class Player {
             convA=true;
         }
     }
-    boolean isBurst(){  //バーストしたかを返す処理
+    public boolean isBurst(){  //バーストしたかを返す処理
         return score>21;
     }
-    Card hit(){//カードを引く処理
+    public Card hit(){//カードを引く処理
         hands.add(deck.drawCard());
         calcScore(hands.get(hands.size()-1));
         return hands.get(hands.size()-1);
     }
-    int getScore(){//スコアを返す処理
+    public int getScore(){//スコアを返す処理
         return score;
     }
-    void reset(Deck new_deck){//リセット処理
+    public void reset(Deck new_deck){//リセット処理
         Player reset = new Player(new_deck);
         return reset;
     }
