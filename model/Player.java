@@ -1,14 +1,14 @@
 package model;
 
 public class Player {
-    private Deck deck;
+    protected Deck deck;
     public Player(Deck deck) {//GameManagerからDeckクラスの参照値を得る
         this.deck = deck;
     }
-    ArrayList<Card> hands = new ArrayList<>();//手札
-    private int score=0; //手札の合計
-    private boolean haveA=false; //Aを入手したかを見る変数
-    private boolean convA=false; //Aが1として計算されたかを見る変数
+    private ArrayList<Card> hands = new ArrayList<>();//手札
+    protected int score=0; //手札の合計
+    protected boolean haveA=false; //Aを入手したかを見る変数
+    protected boolean convA=false; //Aが1として計算されたかを見る変数
     void calcScore(Card c){
         if(!haveA&&c.getValue()==1){ //Aを入手したときの手札計算
             haveA=true;
