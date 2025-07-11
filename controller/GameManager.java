@@ -69,7 +69,7 @@ public class GameManager {
         return player.toString();
     }
 
-    publo String getDealerHandString(){
+    public String getDealerHandString(){
         return dealer.toString();
     }
 
