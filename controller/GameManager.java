@@ -1,7 +1,6 @@
 package controller;
 
-import final_work.model.*;
-import final_work.view.GUI;
+import view.GUI;
 import model.Dealer;
 import model.Deck;
 import model.Player;
