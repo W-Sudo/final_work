@@ -8,4 +8,8 @@ public class Dealer extends Player{
     boolean over_16(){//手札が17以上であるかを返す処理
         return score>16;
     }
+    void reset(Deck new_deck){
+        Dealer reset = new Dealer(new_deck);
+        return reset;
+    }
 }

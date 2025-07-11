@@ -34,5 +34,8 @@ public class Player {
     int getScore(){//スコアを返す処理
         return score;
     }
-
+    void reset(Deck new_deck){
+        Player reset = new Player(new_deck);
+        return reset;
+    }
 }
