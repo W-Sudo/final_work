@@ -1,5 +1,6 @@
-package final_work.controller;
+package controller;
 
+import final_work.model.*;
 import final_work.view.GUI;
 
 public class GameManager {
@@ -8,33 +9,77 @@ public class GameManager {
     private Dealer dealer;
     private GUI gui;
 
-    GameManager(){
+    public GameManager(){
+        startGame();
+        gui = new GUI(this);
+    }
+
+    public void startGame(){
         deck = new Deck();
         player = new Player();
         dealer = new Dealer();
-        gui = new GUI();
-    }
-
-    void startGame(){
-    }
-
-    void playerHit(){
-
-    }
-
-    void playerStand(){
+        
+        //山札から2枚引く
+        player.hit();
+        player.hit();
+        dealer.hit();
+        dealer.hit();
 
     }
 
-    void dealerTurn(){
-
+    public void playerHit(){
+        player.hit();
     }
 
-    String judgeWinner(){
-
+    public void playerStand(){
+        dealerTurn();
     }
 
-    void resetGame(){
+    public void dealerTurn(){
+        while(dealer.getScore() < 17){
+            dealer.hit();
+        }
+    }
 
+    public String judgeWinner(){
+        int p = player.getScore();
+        int d = dealer.getScore();
+
+        if(p > 21){
+            return "Player Burst! Dealer Wins.";
+        }else if(d > 21){
+            return "Dealer Burst! Player Wins.";
+        }else if(p > d){
+            return "Player Wins!";
+        }else if(p < d){
+            return "Dealer Wins!";
+        }else{
+            return "Draw!";
+        }
+    }
+
+    public void resetGame(){
+        startGame();
+        gui.updateHands();
+    }
+
+    public String getPlayerHandString(){
+        return player.toString();
+    }
+
+    publo String getDealerHandString(){
+        return dealer.toString();
+    }
+
+    public boolean isPlayerBusted(){
+        return player.isBurst();
+    }
+
+    public String getResult(){
+        return judgeWinner();
+    }
+
+    public void restart(){
+        resetGame();
     }
 }
