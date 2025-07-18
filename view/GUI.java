@@ -96,20 +96,7 @@ public class GUI {
         s=s+" "+gameManager.getDealerHandString();
         dealerHandLabel.setText(s);
         return s;
-=======
-    public void updateHands() {
-        playerHandPanel.removeAll();
-        dealerHandPanel.removeAll();
-
-        displayCards(playerHandPanel, gameManager.getPlayerHand());
-        displayCards(dealerHandPanel, gameManager.getDealerHand());
-
-        playerHandPanel.revalidate();
-        dealerHandPanel.revalidate();
-        playerHandPanel.repaint();
-        dealerHandPanel.repaint();
     }
-
     private void displayCards(JPanel panel, List<Card> hand) {
         for (Card card : hand) {
             int imageNumber = getImageNumberFromCard(card);
