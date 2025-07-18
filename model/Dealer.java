@@ -1,4 +1,5 @@
 package model;
+import java.util.*;
 
 public class Dealer extends Player{
     public Dealer(Deck deck){
