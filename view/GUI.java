@@ -2,11 +2,8 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
-<<<<<<< HEAD
-=======
-import java.awt.event.*;
+//import java.awt.event.*;
 import controller.GameManager;
->>>>>>> a11a6171c14f25f0160bfc15a0e044cd031db0fc
 
 public class GUI {
     // 属性（フィールド）
