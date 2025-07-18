@@ -1,4 +1,5 @@
 package model;
+import java.util.*;
 
 public class Player {
     protected Deck deck;
@@ -34,7 +35,7 @@ public class Player {
     public int getScore(){//スコアを返す処理
         return score;
     }
-    public void reset(Deck new_deck){//リセット処理
+    public Player reset(Deck new_deck){//リセット処理
         Player reset = new Player(new_deck);
         return reset;
     }

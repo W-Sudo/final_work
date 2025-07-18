@@ -1,7 +1,6 @@
 package controller;
 
-import final_work.model.*;
-import final_work.view.GUI;
+import view.GUI;
 import model.Dealer;
 import model.Deck;
 import model.Player;
@@ -19,8 +18,8 @@ public class GameManager {
 
     public void startGame(){
         deck = new Deck();
-        player = new Player();
-        dealer = new Dealer();
+        player = new Player(deck);
+        dealer = new Dealer(deck);
         
         //山札から2枚引く
         player.hit();
@@ -70,7 +69,7 @@ public class GameManager {
         return player.toString();
     }
 
-    publo String getDealerHandString(){
+    public String getDealerHandString(){
         return dealer.toString();
     }
 

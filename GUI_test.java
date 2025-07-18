@@ -1,14 +1,8 @@
-package view;
-
 import javax.swing.*;
 import java.awt.*;
-<<<<<<< HEAD
-=======
 import java.awt.event.*;
-import controller.GameManager;
->>>>>>> a11a6171c14f25f0160bfc15a0e044cd031db0fc
 
-public class GUI {
+public class GUI_test {
     // 属性（フィールド）
     private JFrame frame;
     private JButton hitButton;
@@ -17,14 +11,16 @@ public class GUI {
     private JLabel playerHandLabel;
     private JLabel dealerHandLabel;
     private JLabel resultLabel;
-    private GameManager gameManager;
+    //private GameManager gameManager;
 
     // コンストラクタ
-    public GUI(GameManager manager) {
+    /*public GUI(GameManager manager) {
         this.gameManager = manager;
         initialize();  // GUI部品初期化
+    }*/
+    public GUI_test(){
+	initialize();
     }
-
     // GUI部品初期
     private void initialize() {
         frame = new JFrame("Blackjack");
@@ -56,13 +52,13 @@ public class GUI {
         frame.add(buttonPanel, BorderLayout.SOUTH);
 
         // アクションリスナー設定
-        setupActionListeners();
+        //setupActionListeners();
 
         frame.setVisible(true);
     }
 
     // GameManager連携（アクションリスナー）
-    private void setupActionListeners() {
+    /*private void setupActionListeners() {
         hitButton.addActionListener(e -> {
             gameManager.playerHit();
             updateHands();
@@ -93,5 +89,5 @@ public class GUI {
     // 勝敗結果表示
     public void showResult() {
         resultLabel.setText(gameManager.getResult());
-    }
+    }*/
 }
