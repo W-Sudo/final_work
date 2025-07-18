@@ -2,7 +2,7 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
-//import java.awt.event.*;
+import java.awt.event.*;
 import controller.GameManager;
 
 public class GUI {
@@ -15,6 +15,8 @@ public class GUI {
     private JLabel dealerHandLabel;
     private JLabel resultLabel;
     private GameManager gameManager;
+    String p_s="Player hands :";
+    String d_s="Dealer hands :";
 
     // コンストラクタ
     public GUI(GameManager manager) {
@@ -62,7 +64,7 @@ public class GUI {
     private void setupActionListeners() {
         hitButton.addActionListener(e -> {
             gameManager.playerHit();
-            updateHands();
+            p_s=updatePlayerHands(p_s);
             if (gameManager.isPlayerBusted()) {
                 showResult();
             }
@@ -70,21 +72,28 @@ public class GUI {
 
         standButton.addActionListener(e -> {
             gameManager.playerStand();
-            updateHands();
+            d_s=updateDealerHands(d_s);
             showResult();
         });
 
         retryButton.addActionListener(e -> {
+            p_s="Player hands :";
+            d_s="Dealer hands :";
             gameManager.restart();
-            updateHands();
             resultLabel.setText("新しいゲームを開始");
         });
     }
 
     // 手札表示更新
-    public void updateHands() {
-        playerHandLabel.setText("Player: " + gameManager.getPlayerHandString());
-        dealerHandLabel.setText("Dealer: " + gameManager.getDealerHandString());
+    public String updatePlayerHands(String s) {
+        s=s+" "+gameManager.getPlayerHandString();
+        playerHandLabel.setText(s);
+        return s;
+    }
+    public String updateDealerHands(String s) {
+        s=s+" "+gameManager.getDealerHandString();
+        dealerHandLabel.setText(s);
+        return s;
     }
 
     // 勝敗結果表示

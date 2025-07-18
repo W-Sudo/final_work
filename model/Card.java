@@ -23,4 +23,18 @@ public class Card{
     public int getN(){//GUIのために識別番号を得るゲッターメソッド
         return n;
     }
+    public String toString(){//GUIのためマークと値をまとめて文字列にして返すメソッド
+        String markGUI;
+        if(this.mark.equals("spade")){
+            markGUI="♠";
+        }else if(this.mark.equals("club")){
+            markGUI="♣";
+        }else if(this.mark.equals("heart")){
+            markGUI="♥";
+        }else{
+            markGUI="♦";
+        }
+        String graphic = markGUI+this.value;
+        return graphic;
+    }
 }

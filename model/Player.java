@@ -27,9 +27,11 @@ public class Player {
     public boolean isBurst(){  //バーストしたかを返す処理
         return score>21;
     }
-    public Card hit(){//カードを引く処理
+    public void hit(){//カードを引く処理
         hands.add(deck.drawCard());
         calcScore(hands.get(hands.size()-1));
+    }
+    public Card getCard(){
         return hands.get(hands.size()-1);
     }
     public int getScore(){//スコアを返す処理

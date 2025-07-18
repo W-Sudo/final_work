@@ -62,15 +62,14 @@ public class GameManager {
 
     public void resetGame(){
         startGame();
-        gui.updateHands();
     }
 
     public String getPlayerHandString(){
-        return player.toString();
+        return player.getCard().toString();
     }
 
     public String getDealerHandString(){
-        return dealer.toString();
+        return dealer.getCard().toString();
     }
 
     public boolean isPlayerBusted(){
