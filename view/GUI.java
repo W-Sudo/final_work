@@ -2,7 +2,6 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class GUI {
     // 属性（フィールド）
