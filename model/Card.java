@@ -10,8 +10,8 @@ public class Card{
         switch (n % 4) {
             case 0: this.mark = "spade"; break;
             case 1: this.mark = "club"; break;
-            case 2: this.mark = "heart"; break;
-            case 3: this.mark = "diamond"; break;
+            case 2: this.mark = "diamond"; break;
+            case 3: this.mark = "heart"; break;
         }
     }
     public int getValue(){//値のゲッターメソッド
@@ -20,18 +20,7 @@ public class Card{
     public String getMark(){//マークのゲッターメソッド
         return mark;
     }
-    public String toString(){//GUIのためマークと値をまとめて文字列にして返すメソッド
-        String markGUI;
-        if(this.mark.equals("spade")){
-            markGUI="♠";
-        }else if(this.mark.equals("club")){
-            markGUI="♣";
-        }else if(this.mark.equals("heart")){
-            markGUI="♥";
-        }else{
-            markGUI="♦";
-        }
-        String graphic = markGUI+this.value;
-        return graphic;
+    public int getN(){//GUIのために識別番号を得るゲッターメソッド
+        return n;
     }
 }
