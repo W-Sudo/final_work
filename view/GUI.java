@@ -2,63 +2,55 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
-//import java.awt.event.*;
+import java.util.List;
+import model.Card;
+import model.Card.Suit;
 import controller.GameManager;
 
 public class GUI {
-    // 属性（フィールド）
     private JFrame frame;
-    private JButton hitButton;
-    private JButton standButton;
-    private JButton retryButton;
-    private JLabel playerHandLabel;
-    private JLabel dealerHandLabel;
+    private JPanel playerHandPanel;
+    private JPanel dealerHandPanel;
     private JLabel resultLabel;
+    private JButton hitButton, standButton, retryButton;
     private GameManager gameManager;
 
-    // コンストラクタ
     public GUI(GameManager manager) {
         this.gameManager = manager;
-        initialize();  // GUI部品初期化
+        initialize();
     }
 
-    // GUI部品初期
     private void initialize() {
         frame = new JFrame("Blackjack");
-        frame.setSize(500, 300);
+        frame.setSize(800, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
-        // 上部：勝敗表示
         resultLabel = new JLabel("ゲーム開始", SwingConstants.CENTER);
         frame.add(resultLabel, BorderLayout.NORTH);
 
-        // 中央：手札表示
         JPanel handPanel = new JPanel(new GridLayout(2, 1));
-        playerHandLabel = new JLabel("Player: ");
-        dealerHandLabel = new JLabel("Dealer: ");
-        handPanel.add(playerHandLabel);
-        handPanel.add(dealerHandLabel);
+        playerHandPanel = new JPanel();
+        dealerHandPanel = new JPanel();
+        handPanel.add(playerHandPanel);
+        handPanel.add(dealerHandPanel);
         frame.add(handPanel, BorderLayout.CENTER);
 
-        // 下部：ボタン
         JPanel buttonPanel = new JPanel();
         hitButton = new JButton("Hit");
         standButton = new JButton("Stand");
         retryButton = new JButton("Retry");
-
         buttonPanel.add(hitButton);
         buttonPanel.add(standButton);
         buttonPanel.add(retryButton);
         frame.add(buttonPanel, BorderLayout.SOUTH);
 
-        // アクションリスナー設定
         setupActionListeners();
+        updateHands();
 
         frame.setVisible(true);
     }
 
-    // GameManager連携（アクションリスナー）
     private void setupActionListeners() {
         hitButton.addActionListener(e -> {
             gameManager.playerHit();
@@ -81,13 +73,39 @@ public class GUI {
         });
     }
 
-    // 手札表示更新
     public void updateHands() {
-        playerHandLabel.setText("Player: " + gameManager.getPlayerHandString());
-        dealerHandLabel.setText("Dealer: " + gameManager.getDealerHandString());
+        playerHandPanel.removeAll();
+        dealerHandPanel.removeAll();
+
+        displayCards(playerHandPanel, gameManager.getPlayerHand());
+        displayCards(dealerHandPanel, gameManager.getDealerHand());
+
+        playerHandPanel.revalidate();
+        dealerHandPanel.revalidate();
+        playerHandPanel.repaint();
+        dealerHandPanel.repaint();
     }
 
-    // 勝敗結果表示
+    private void displayCards(JPanel panel, List<Card> hand) {
+        for (Card card : hand) {
+            int imageNumber = calculateImageNumber(card);
+            String filename = "images/torannpu-illust" + imageNumber + ".png";
+            ImageIcon icon = new ImageIcon(filename);
+            Image scaled = icon.getImage().getScaledInstance(80, 110, Image.SCALE_SMOOTH);
+            panel.add(new JLabel(new ImageIcon(scaled)));
+        }
+    }
+
+    private int calculateImageNumber(Card card) {
+        int base = switch (card.getSuit()) {
+            case SPADE -> 0;
+            case CLUB -> 13;
+            case DIAMOND -> 26;
+            case HEART -> 39;
+        };
+        return base + card.getNumber(); // number は 1〜13
+    }
+
     public void showResult() {
         resultLabel.setText(gameManager.getResult());
     }
