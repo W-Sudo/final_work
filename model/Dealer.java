@@ -5,6 +5,7 @@ public class Dealer extends Player{
     public Dealer(Deck deck){
         super(deck);
     }
+    @SuppressWarnings("unused")
     private ArrayList<Card> hands = new ArrayList<>();//共有しない手札の宣言
     public boolean over_16(){//手札が17以上であるかを返す処理
         return score>16;
