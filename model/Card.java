@@ -4,7 +4,6 @@ public class Card{
     private int value;//カードの数値
     private String mark;//カードのマーク
     private int n;//識別用の数字
-    //private String image_path;
     public Card(int n0){//識別番号から変数を初期化する処理
         n=n0;
         value=n/4+1;
@@ -24,13 +23,6 @@ public class Card{
     public int getN(){//GUIのために識別番号を得るゲッターメソッド
         return n;
     }
-    /*
-    void getImagePath(){
-        image_path=ReadImage.returnPath(n);
-    }
-    public String getPath(){
-        return image_path;
-    }*/
     public String toString(){//GUIのためマークと値をまとめて文字列にして返すメソッド
         String markGUI;
         if(this.mark.equals("spade")){

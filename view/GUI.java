@@ -65,8 +65,8 @@ public class GUI {
 
     private void setupActionListeners() {
         hitButton.addActionListener(e -> {
-            gameManager.playerHit();
             if(!haveFinish){
+                gameManager.playerHit();
                 updatePlayerHands(gameManager.getPlayerHand());
             }
             if (gameManager.isPlayerBusted()) {
@@ -114,43 +114,6 @@ public class GUI {
         }
         dealerHandLabel.setText(s);
     }
-    /*public void updateHands() {
-        playerHandLabel.removeAll();
-        dealerHandLabel.removeAll();
-
-        displayCards(playerHandLabel, gameManager.getPlayerHand());
-        displayCards(dealerHandLabel, gameManager.getDealerHand());
-
-        playerHandLabel.revalidate();
-        dealerHandLabel.revalidate();
-        playerHandLabel.repaint();
-        dealerHandLabel.repaint();
-    }*/
-
-    private void displayCards(JPanel panel, List<Card> hand) {
-        for (Card card : hand) {
-            int imageNumber = getImageNumberFromCard(card);
-            String filename = "images/torannpu-illust" + imageNumber + ".png";
-            ImageIcon icon = new ImageIcon(filename);
-
-            // 画像が読み込めない場合のデバッグ出力
-            if (icon.getIconWidth() == -1) {
-                System.err.println("画像が見つかりません: " + filename);
-                continue;
-            }
-
-            Image scaled = icon.getImage().getScaledInstance(80, 110, Image.SCALE_SMOOTH);
-            JLabel label = new JLabel(new ImageIcon(scaled));
-            panel.add(label);
-        }
-    }
-
-    // Card から画像番号（1〜52）を計算
-    private int getImageNumberFromCard(Card card) {
-        int suitOffset = card.getN();
-        return suitOffset;
-    }
-
     public void showResult() {
         resultLabel.setText(gameManager.getResult());
     }
