@@ -1,9 +1,12 @@
 package controller;
 
-import view.GUI;
+import java.util.*;
+
 import model.Dealer;
 import model.Deck;
 import model.Player;
+import view.GUI;
+import model.Card;
 
 public class GameManager {
     private Deck deck;
@@ -12,15 +15,14 @@ public class GameManager {
     private GUI gui;
 
     public GameManager(){
+        deck = new Deck();
+        player = new Player(deck);
+        dealer = new Dealer(deck);
         startGame();
         gui = new GUI(this);
     }
 
     public void startGame(){
-        deck = new Deck();
-        player = new Player(deck);
-        dealer = new Dealer(deck);
-        
         //山札から2枚引く
         player.hit();
         player.hit();
@@ -61,15 +63,18 @@ public class GameManager {
     }
 
     public void resetGame(){
+        deck=deck.reset();
+        player=player.reset(deck);
+        dealer=dealer.reset(deck);
         startGame();
     }
 
-    public String getPlayerHandString(){
-        return player.getCard().toString();
+    public ArrayList<Card> getPlayerHand(){
+        return player.getCard();
     }
 
-    public String getDealerHandString(){
-        return dealer.getCard().toString();
+    public ArrayList<Card> getDealerHand(){
+        return dealer.getCard();
     }
 
     public boolean isPlayerBusted(){

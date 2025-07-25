@@ -1,20 +1,18 @@
 package view;
 
+
 import javax.swing.*;
 import java.awt.*;
-<<<<<<< HEAD
 import java.awt.event.*;
-=======
 import java.util.List;
+import java.util.*;
 import model.Card;
-import model.Card.Suit;
->>>>>>> 71aaf6ef1da45f5a5d5c41cded026c12bbd035c4
 import controller.GameManager;
 
 public class GUI {
     private JFrame frame;
-    private JPanel playerHandPanel;
-    private JPanel dealerHandPanel;
+    private JLabel playerHandLabel;
+    private JLabel dealerHandLabel;
     private JLabel resultLabel;
     private JButton hitButton, standButton, retryButton;
     private GameManager gameManager;
@@ -39,10 +37,12 @@ public class GUI {
 
         // 手札表示パネル（上下）
         JPanel handsPanel = new JPanel(new GridLayout(2, 1));
-        playerHandPanel = new JPanel();
-        dealerHandPanel = new JPanel();
-        handsPanel.add(playerHandPanel);
-        handsPanel.add(dealerHandPanel);
+        playerHandLabel = new JLabel(p_s);
+        dealerHandLabel = new JLabel(d_s);
+        updatePlayerHands(gameManager.getPlayerHand());
+        updateDealerHands(gameManager.getDealerHand(),false);
+        handsPanel.add(playerHandLabel);
+        handsPanel.add(dealerHandLabel);
         frame.add(handsPanel, BorderLayout.CENTER);
 
         // ボタンパネル
@@ -57,7 +57,7 @@ public class GUI {
 
         // ボタン動作設定
         setupActionListeners();
-        updateHands();
+        //updateHands();
 
         frame.setVisible(true);
     }
@@ -65,7 +65,7 @@ public class GUI {
     private void setupActionListeners() {
         hitButton.addActionListener(e -> {
             gameManager.playerHit();
-            p_s=updatePlayerHands(p_s);
+            updatePlayerHands(gameManager.getPlayerHand());
             if (gameManager.isPlayerBusted()) {
                 showResult();
             }
@@ -73,7 +73,7 @@ public class GUI {
 
         standButton.addActionListener(e -> {
             gameManager.playerStand();
-            d_s=updateDealerHands(d_s);
+            updateDealerHands(gameManager.getDealerHand(),true);
             showResult();
         });
 
@@ -81,22 +81,44 @@ public class GUI {
             p_s="Player hands :";
             d_s="Dealer hands :";
             gameManager.restart();
+            updatePlayerHands(gameManager.getPlayerHand());
+            updateDealerHands(gameManager.getDealerHand(),false);
             resultLabel.setText("新しいゲームを開始");
         });
     }
 
-<<<<<<< HEAD
     // 手札表示更新
-    public String updatePlayerHands(String s) {
-        s=s+" "+gameManager.getPlayerHandString();
+    public void updatePlayerHands(ArrayList<Card> c) {
+        String s = p_s;
+        for(int i=0;i<c.size();i++){
+            s=s+" "+c.get(i).toString();
+        }
         playerHandLabel.setText(s);
-        return s;
     }
-    public String updateDealerHands(String s) {
-        s=s+" "+gameManager.getDealerHandString();
+    public void updateDealerHands(ArrayList<Card> c,boolean haveStand) {
+        String s = d_s;
+        if(haveStand){
+            for(int i=0;i<c.size();i++){
+                s=s+" "+c.get(i).toString();
+            }
+        }else{
+            s=s+" "+c.get(0).toString()+" ??";
+        }
         dealerHandLabel.setText(s);
-        return s;
     }
+    /*public void updateHands() {
+        playerHandLabel.removeAll();
+        dealerHandLabel.removeAll();
+
+        displayCards(playerHandLabel, gameManager.getPlayerHand());
+        displayCards(dealerHandLabel, gameManager.getDealerHand());
+
+        playerHandLabel.revalidate();
+        dealerHandLabel.revalidate();
+        playerHandLabel.repaint();
+        dealerHandLabel.repaint();
+    }*/
+
     private void displayCards(JPanel panel, List<Card> hand) {
         for (Card card : hand) {
             int imageNumber = getImageNumberFromCard(card);
@@ -117,14 +139,8 @@ public class GUI {
 
     // Card から画像番号（1〜52）を計算
     private int getImageNumberFromCard(Card card) {
-        int suitOffset = switch (card.getSuit()) {
-            case SPADE -> 0;
-            case CLUB -> 13;
-            case DIAMOND -> 26;
-            case HEART -> 39;
-        };
-        return suitOffset + card.getNumber(); // number は 1〜13
->>>>>>> 71aaf6ef1da45f5a5d5c41cded026c12bbd035c4
+        int suitOffset = card.getN();
+        return suitOffset;
     }
 
     public void showResult() {

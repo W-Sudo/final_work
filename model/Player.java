@@ -31,8 +31,9 @@ public class Player {
         hands.add(deck.drawCard());
         calcScore(hands.get(hands.size()-1));
     }
-    public Card getCard(){
-        return hands.get(hands.size()-1);
+    //hands.get(hands.size()-1)
+    public ArrayList<Card> getCard(){//手札情報に関するゲッターメソッド
+        return hands;
     }
     public int getScore(){//スコアを返す処理
         return score;
