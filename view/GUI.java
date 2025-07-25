@@ -38,7 +38,9 @@ public class GUI {
         // 手札表示パネル（上下）
         JPanel handsPanel = new JPanel(new GridLayout(2, 1));
         playerHandLabel = new JLabel(p_s);
+        playerHandLabel.setFont(new Font("Monospaced", Font.PLAIN, 30));
         dealerHandLabel = new JLabel(d_s);
+        dealerHandLabel.setFont(new Font("Monospaced", Font.PLAIN, 30));
         updatePlayerHands(gameManager.getPlayerHand());
         updateDealerHands(gameManager.getDealerHand(),false);
         handsPanel.add(playerHandLabel);
@@ -96,22 +98,40 @@ public class GUI {
 
     // 手札表示更新
     public void updatePlayerHands(ArrayList<Card> c) {
-        String s = p_s;
+        StringBuilder sb = new StringBuilder();
+        sb.append("<html>"+p_s);
+
+        // 操作によって色付きの行を追加
         for(int i=0;i<c.size();i++){
-            s=s+" "+c.get(i).toString();
+            if(c.get(i).getMark()=="heart"||c.get(i).getMark()=="diamond"){
+                sb.append("<span style='color:red;'> "+c.get(i).toString()+"</span>");
+            }else{
+                sb.append(" "+c.get(i).toString());
+            }
         }
-        playerHandLabel.setText(s);
+        sb.append("</html>");
+        playerHandLabel.setText(sb.toString());
     }
     public void updateDealerHands(ArrayList<Card> c,boolean haveStand) {
-        String s = d_s;
+        StringBuilder sb = new StringBuilder();
+        sb.append("<html>"+d_s);
         if(haveStand){
             for(int i=0;i<c.size();i++){
-                s=s+" "+c.get(i).toString();
+                if(c.get(i).getMark()=="heart"||c.get(i).getMark()=="diamond"){
+                    sb.append("<span style='color:red;'> "+c.get(i).toString()+"</span>");
+                }else{
+                    sb.append(" "+c.get(i).toString());
+                }
             }
         }else{
-            s=s+" "+c.get(0).toString()+" ??";
+            if(c.get(0).getMark()=="heart"||c.get(0).getMark()=="diamond"){
+                sb.append("<span style='color:red;'> "+c.get(0).toString()+"</span>");
+            }else{
+                sb.append(" "+c.get(0).toString());
+            }
+            sb.append(" ??");
         }
-        dealerHandLabel.setText(s);
+        dealerHandLabel.setText(sb.toString());
     }
     public void showResult() {
         resultLabel.setText(gameManager.getResult());

@@ -24,6 +24,7 @@ public class GameManager {
 
     public void startGame(){
         //山札から2枚引く
+        
         player.hit();
         player.hit();
         dealer.hit();
