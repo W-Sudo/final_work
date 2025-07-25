@@ -16,6 +16,7 @@ public class GUI {
     private JLabel resultLabel;
     private JButton hitButton, standButton, retryButton;
     private GameManager gameManager;
+    boolean haveFinish=false;
     String p_s="Player hands :";
     String d_s="Dealer hands :";
 
@@ -65,15 +66,21 @@ public class GUI {
     private void setupActionListeners() {
         hitButton.addActionListener(e -> {
             gameManager.playerHit();
-            updatePlayerHands(gameManager.getPlayerHand());
+            if(!haveFinish){
+                updatePlayerHands(gameManager.getPlayerHand());
+            }
             if (gameManager.isPlayerBusted()) {
+                haveFinish=true;
                 showResult();
             }
         });
 
         standButton.addActionListener(e -> {
             gameManager.playerStand();
-            updateDealerHands(gameManager.getDealerHand(),true);
+            if(!haveFinish){
+                updateDealerHands(gameManager.getDealerHand(),true);
+            }
+            haveFinish=true;
             showResult();
         });
 
@@ -83,6 +90,7 @@ public class GUI {
             gameManager.restart();
             updatePlayerHands(gameManager.getPlayerHand());
             updateDealerHands(gameManager.getDealerHand(),false);
+            haveFinish=false;
             resultLabel.setText("新しいゲームを開始");
         });
     }
