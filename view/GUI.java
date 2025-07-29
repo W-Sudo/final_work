@@ -36,7 +36,6 @@ public class GUI {
        createGamePanel();
        createStartPanel();
        
-
        frame.add(startPanel, BorderLayout.CENTER);
        frame.setVisible(true);
     }
@@ -44,9 +43,12 @@ public class GUI {
     private void createStartPanel() {
         startPanel = new JPanel();
         startPanel.setLayout(new BorderLayout());
-        JLabel titleLabel = new JLabel("Wellcome to Blackjack!!", SwingConstants.CENTER);
+
+        JLabel titleLabel = new JLabel("Welcome to Blackjack!!", SwingConstants.CENTER);
         titleLabel.setFont(new Font("SansSerif", Font.BOLD, 24));
+
         JButton startButton = new JButton("Game Start");
+        startButton.setFont(new Font("SansSerif", Font.BOLD, 24));
 
         startButton.addActionListener(e -> {
             frame.getContentPane().removeAll();
@@ -54,14 +56,12 @@ public class GUI {
             frame.revalidate();
             frame.repaint();
             gameManager.restart();
-
             updatePlayerHands(gameManager.getPlayerHand());
             updateDealerHands(gameManager.getDealerHand(), false);     
         });
+
         startPanel.add(titleLabel, BorderLayout.CENTER);
         startPanel.add(startButton, BorderLayout.SOUTH);
-        frame.add(startPanel, BorderLayout.CENTER);
-
     }
 
     private void createGamePanel() {
@@ -167,14 +167,12 @@ public class GUI {
 
     public void showEndScreen(String resultText) {
         endPanel = new JPanel(new BorderLayout());
-        JLabel resultLabel = new JLabel(resultText, SwingConstants.CENTER);
-        resultLabel.setFont(new Font("SansSerif", Font.BOLD, 22));
 
+        resultLabel.setText(resultText); 
+        
         JPanel buttonPanel = new JPanel();
         JButton retryButton = new JButton("Retry");
         JButton exitButton = new JButton("Finish");
-
-        
 
         retryButton.addActionListener(e -> {
             frame.getContentPane().removeAll();
@@ -187,7 +185,7 @@ public class GUI {
             // ★ 再描画・再表示（追加）
             updatePlayerHands(gameManager.getPlayerHand());
             updateDealerHands(gameManager.getDealerHand(), false);
-            resultLabel.setText("新しいゲームを開始");
+            resultLabel.setText("Game Start");
             haveFinish = false;
         });
 
