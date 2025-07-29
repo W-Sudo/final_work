@@ -22,7 +22,6 @@ public class GUI {
     private JPanel gamePanel; 
     private JPanel handsPanel = new JPanel(new GridLayout(2, 1));;// ← フィールドとして追加
 
-
     public GUI(GameManager manager) {
         this.gameManager = manager;
         this.gameManager.setGUI(this);
@@ -38,7 +37,6 @@ public class GUI {
        createGamePanel();
        createStartPanel();
        
-
        frame.add(startPanel, BorderLayout.CENTER);
        frame.setVisible(true);
     }
@@ -46,9 +44,12 @@ public class GUI {
     private void createStartPanel() {
         startPanel = new JPanel();
         startPanel.setLayout(new BorderLayout());
-        JLabel titleLabel = new JLabel("Wellcome to Blackjack!!", SwingConstants.CENTER);
+
+        JLabel titleLabel = new JLabel("Welcome to Blackjack!!", SwingConstants.CENTER);
         titleLabel.setFont(new Font("SansSerif", Font.BOLD, 24));
-        JButton startButton = new JButton("ゲームスタート");
+
+        JButton startButton = new JButton("Game Start");
+        startButton.setFont(new Font("SansSerif", Font.BOLD, 24));
 
         startButton.addActionListener(e -> {
             frame.getContentPane().removeAll();
@@ -56,18 +57,17 @@ public class GUI {
             frame.revalidate();
             frame.repaint();
         });
+
         startPanel.add(titleLabel, BorderLayout.CENTER);
         startPanel.add(startButton, BorderLayout.SOUTH);
     }
 
     private void createGamePanel() {
         gamePanel = new JPanel(new BorderLayout());
-
         // タイトル表示（ゲーム状況）
         resultLabel = new JLabel("ゲーム開始", SwingConstants.CENTER);
         resultLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
         gamePanel.add(resultLabel, BorderLayout.NORTH);
-
         // 手札表示
         playerHandLabel = new JLabel(p_s);
         playerHandLabel.setFont(new Font("Monospaced", Font.PLAIN, 30));
@@ -184,6 +184,7 @@ public class GUI {
             updatePlayerHands(gameManager.getPlayerHand());
             updateDealerHands(gameManager.getDealerHand(), false);
             gamePanel.add(handsPanel, BorderLayout.CENTER);
+
         });
 
         exitButton.addActionListener(e -> System.exit(0));
