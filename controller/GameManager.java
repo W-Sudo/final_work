@@ -22,7 +22,7 @@ public class GameManager {
         chip = new Chip();
         player = new Player(deck);
         dealer = new Dealer(deck);
-        
+        startGame();
         gui = new GUI(this);
         
     }
@@ -31,7 +31,6 @@ public class GameManager {
     public void startGame(){
         int bet = 10;
         chip.changeChip(bet);
-        
         player.hit();
         player.hit();
         dealer.hit();

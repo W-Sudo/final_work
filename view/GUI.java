@@ -12,14 +12,15 @@ public class GUI {
     private JLabel playerHandLabel;
     private JLabel dealerHandLabel;
     private JLabel resultLabel;
-    private JButton hitButton, standButton, retryButton;
+    private JButton hitButton, standButton;
     private GameManager gameManager;
     private boolean haveFinish=false;
     private final String p_s="Player hands :";
     private final String d_s="Dealer hands :";
     private JPanel startPanel;
     private JPanel endPanel;
-    private JPanel gamePanel;  // ← フィールドとして追加
+    private JPanel gamePanel; 
+    private JPanel handsPanel = new JPanel(new GridLayout(2, 1));;// ← フィールドとして追加
 
     public GUI(GameManager manager) {
         this.gameManager = manager;
@@ -55,9 +56,6 @@ public class GUI {
             frame.add(gamePanel);
             frame.revalidate();
             frame.repaint();
-            gameManager.restart();
-            updatePlayerHands(gameManager.getPlayerHand());
-            updateDealerHands(gameManager.getDealerHand(), false);     
         });
 
         startPanel.add(titleLabel, BorderLayout.CENTER);
@@ -66,21 +64,20 @@ public class GUI {
 
     private void createGamePanel() {
         gamePanel = new JPanel(new BorderLayout());
-
-       // タイトル表示（ゲーム状況）
-       resultLabel = new JLabel("Game Start", SwingConstants.CENTER);
-       resultLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
-       gamePanel.add(resultLabel, BorderLayout.NORTH);
-
-       // 手札表示
-       JPanel handsPanel = new JPanel(new GridLayout(2, 1));
-       playerHandLabel = new JLabel(p_s);
-       playerHandLabel.setFont(new Font("Monospaced", Font.PLAIN, 30));
-       dealerHandLabel = new JLabel(d_s);
-       dealerHandLabel.setFont(new Font("Monospaced", Font.PLAIN, 30));
-       handsPanel.add(playerHandLabel);
-       handsPanel.add(dealerHandLabel);
-       gamePanel.add(handsPanel, BorderLayout.CENTER);
+        // タイトル表示（ゲーム状況）
+        resultLabel = new JLabel("ゲーム開始", SwingConstants.CENTER);
+        resultLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
+        gamePanel.add(resultLabel, BorderLayout.NORTH);
+        // 手札表示
+        playerHandLabel = new JLabel(p_s);
+        playerHandLabel.setFont(new Font("Monospaced", Font.PLAIN, 30));
+        dealerHandLabel = new JLabel(d_s);
+        dealerHandLabel.setFont(new Font("Monospaced", Font.PLAIN, 30));
+        updatePlayerHands(gameManager.getPlayerHand());
+        updateDealerHands(gameManager.getDealerHand(), false);
+        handsPanel.add(playerHandLabel);
+        handsPanel.add(dealerHandLabel);
+        gamePanel.add(handsPanel, BorderLayout.CENTER);
 
        // ボタン類
        JPanel buttonPanel = new JPanel();
@@ -167,26 +164,27 @@ public class GUI {
 
     public void showEndScreen(String resultText) {
         endPanel = new JPanel(new BorderLayout());
-        JLabel resultLabel = new JLabel(resultText, SwingConstants.CENTER);
-        resultLabel.setFont(new Font("SansSerif", Font.BOLD, 22));
+        resultLabel = new JLabel(resultText, SwingConstants.CENTER);
+        resultLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
 
         JPanel buttonPanel = new JPanel();
         JButton retryButton = new JButton("Retry");
         JButton exitButton = new JButton("Finish");
 
         retryButton.addActionListener(e -> {
+            // ゲームロジックを初期化
+            gameManager.restart();
+            haveFinish = false;
             frame.getContentPane().removeAll();
             frame.add(gamePanel); // ゲーム画面に戻す
             frame.revalidate();
             frame.repaint();
-            
-            gameManager.restart(); // ゲームロジックを初期化
-            
             // ★ 再描画・再表示（追加）
+            resultLabel.setText("新しいゲームを開始");
             updatePlayerHands(gameManager.getPlayerHand());
             updateDealerHands(gameManager.getDealerHand(), false);
-            resultLabel.setText("Game Start");
-            haveFinish = false;
+            gamePanel.add(handsPanel, BorderLayout.CENTER);
+
         });
 
         exitButton.addActionListener(e -> System.exit(0));
@@ -194,7 +192,8 @@ public class GUI {
         buttonPanel.add(retryButton);
         buttonPanel.add(exitButton);
 
-        endPanel.add(resultLabel, BorderLayout.CENTER);
+        endPanel.add(resultLabel, BorderLayout.NORTH);
+        endPanel.add(handsPanel, BorderLayout.CENTER);
         endPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         frame.getContentPane().removeAll();
