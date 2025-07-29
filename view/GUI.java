@@ -21,7 +21,6 @@ public class GUI {
     private JPanel endPanel;
     private JPanel gamePanel;  // ← フィールドとして追加
 
-
     public GUI(GameManager manager) {
         this.gameManager = manager;
         this.gameManager.setGUI(this);
