@@ -17,6 +17,7 @@ public class GUI {
     private boolean haveFinish=false;
     private final String p_s="Player hands :";
     private final String d_s="Dealer hands :";
+    private JPanel startPanel;
 
     public GUI(GameManager manager) {
         this.gameManager = manager;
@@ -27,7 +28,10 @@ public class GUI {
         frame = new JFrame("Blackjack");
         frame.setSize(800, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new BorderLayout());
+        frame.setLayout(new CardLayout());
+
+        createStartPanel();
+        createGamePanel();
 
         // タイトル表示（ゲーム状況）
         resultLabel = new JLabel("ゲーム開始", SwingConstants.CENTER);
@@ -60,6 +64,24 @@ public class GUI {
         setupActionListeners();
         
         frame.setVisible(true);
+    }
+
+    private void createStartPanel() {
+        startPanel = new JPanel();
+        startPanel.setLayout(new BorderLayout());
+        JLabel titleLabel = new JLabel("ブラックジャックへようこそ", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("SansSerif", Font.BOLD, 24));
+        JButton startButton = new JButton("ゲームスタート");
+        startButton.addActionListener(e -> {
+            frame.getContentPane().removeAll();
+            frame.add(gamePanel); // 後述のgamePanel（ゲーム画面）へ
+            frame.revalidate();
+            frame.repaint();
+            gameManager.startNewGame(); // 必要に応じて
+        });
+        startPanel.add(titleLabel, BorderLayout.CENTER);
+        startPanel.add(startButton, BorderLayout.SOUTH);
+        frame.add(startPanel, BorderLayout.CENTER);
     }
 
     //ボタン処理
