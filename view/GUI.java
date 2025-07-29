@@ -45,13 +45,13 @@ public class GUI {
     private void createStartPanel() {
         startPanel = new JPanel();
         startPanel.setLayout(new BorderLayout());
-        JLabel titleLabel = new JLabel("ブラックジャックへようこそ", SwingConstants.CENTER);
+        JLabel titleLabel = new JLabel("Wellcome to Blackjack!!", SwingConstants.CENTER);
         titleLabel.setFont(new Font("SansSerif", Font.BOLD, 24));
         JButton startButton = new JButton("ゲームスタート");
 
         startButton.addActionListener(e -> {
             frame.getContentPane().removeAll();
-            frame.add(gamePanel); // 後述のgamePanel（ゲーム画面）へ
+            frame.add(gamePanel);
             frame.revalidate();
             frame.repaint();
             gameManager.restart();
