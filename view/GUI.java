@@ -19,53 +19,27 @@ public class GUI {
     private final String d_s="Dealer hands :";
     private JPanel startPanel;
     private JPanel endPanel;
+    private JPanel gamePanel;  // ← フィールドとして追加
 
 
     public GUI(GameManager manager) {
         this.gameManager = manager;
+        this.gameManager.setGUI(this);
         initialize();
     }
 
     private void initialize() {
-        frame = new JFrame("Blackjack");
-        frame.setSize(800, 500);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new CardLayout());
+       frame = new JFrame("Blackjack");
+       frame.setSize(800, 500);
+       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       frame.setLayout(new BorderLayout());
 
-        createStartPanel();
-        createGamePanel();
+       createGamePanel();
+       createStartPanel();
+       
 
-        // タイトル表示（ゲーム状況）
-        resultLabel = new JLabel("ゲーム開始", SwingConstants.CENTER);
-        resultLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
-        frame.add(resultLabel, BorderLayout.NORTH);
-
-        // 手札表示パネル（上下）
-        JPanel handsPanel = new JPanel(new GridLayout(2, 1));
-        playerHandLabel = new JLabel(p_s);
-        playerHandLabel.setFont(new Font("Monospaced", Font.PLAIN, 30));
-        dealerHandLabel = new JLabel(d_s);
-        dealerHandLabel.setFont(new Font("Monospaced", Font.PLAIN, 30));
-        updatePlayerHands(gameManager.getPlayerHand());
-        updateDealerHands(gameManager.getDealerHand(),false);
-        handsPanel.add(playerHandLabel);
-        handsPanel.add(dealerHandLabel);
-        frame.add(handsPanel, BorderLayout.CENTER);
-
-        // ボタンパネル
-        JPanel buttonPanel = new JPanel();
-        hitButton = new JButton("Hit");
-        standButton = new JButton("Stand");
-        retryButton = new JButton("Retry");
-        buttonPanel.add(hitButton);
-        buttonPanel.add(standButton);
-        buttonPanel.add(retryButton);
-        frame.add(buttonPanel, BorderLayout.SOUTH);
-
-        // ボタン動作設定
-        setupActionListeners();
-        
-        frame.setVisible(true);
+       frame.add(startPanel, BorderLayout.CENTER);
+       frame.setVisible(true);
     }
 
     private void createStartPanel() {
@@ -74,16 +48,52 @@ public class GUI {
         JLabel titleLabel = new JLabel("ブラックジャックへようこそ", SwingConstants.CENTER);
         titleLabel.setFont(new Font("SansSerif", Font.BOLD, 24));
         JButton startButton = new JButton("ゲームスタート");
+
         startButton.addActionListener(e -> {
             frame.getContentPane().removeAll();
             frame.add(gamePanel); // 後述のgamePanel（ゲーム画面）へ
             frame.revalidate();
             frame.repaint();
-            gameManager.startNewGame(); // 必要に応じて
+            gameManager.restart();
+
+            updatePlayerHands(gameManager.getPlayerHand());
+            updateDealerHands(gameManager.getDealerHand(), false);     
         });
         startPanel.add(titleLabel, BorderLayout.CENTER);
         startPanel.add(startButton, BorderLayout.SOUTH);
         frame.add(startPanel, BorderLayout.CENTER);
+
+    }
+
+    private void createGamePanel() {
+        gamePanel = new JPanel(new BorderLayout());
+
+       // タイトル表示（ゲーム状況）
+       resultLabel = new JLabel("ゲーム開始", SwingConstants.CENTER);
+       resultLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
+       gamePanel.add(resultLabel, BorderLayout.NORTH);
+
+       // 手札表示
+       JPanel handsPanel = new JPanel(new GridLayout(2, 1));
+       playerHandLabel = new JLabel(p_s);
+       playerHandLabel.setFont(new Font("Monospaced", Font.PLAIN, 30));
+       dealerHandLabel = new JLabel(d_s);
+       dealerHandLabel.setFont(new Font("Monospaced", Font.PLAIN, 30));
+       handsPanel.add(playerHandLabel);
+       handsPanel.add(dealerHandLabel);
+       gamePanel.add(handsPanel, BorderLayout.CENTER);
+
+       // ボタン類
+       JPanel buttonPanel = new JPanel();
+       hitButton = new JButton("Hit");
+       standButton = new JButton("Stand");
+       
+       buttonPanel.add(hitButton);
+       buttonPanel.add(standButton);
+       
+       gamePanel.add(buttonPanel, BorderLayout.SOUTH);
+
+       setupActionListeners(); // ボタンのイベントもセット
     }
 
     //ボタン処理
@@ -96,7 +106,7 @@ public class GUI {
             }
             if (gameManager.isPlayerBusted()) {
                 haveFinish=true;
-                showResult();
+                 gameManager.finishGame(gameManager.getResult());
             }
         });
 
@@ -107,15 +117,7 @@ public class GUI {
                 updateDealerHands(gameManager.getDealerHand(),true);
             }
             haveFinish=true;
-            showResult();
-        });
-
-        retryButton.addActionListener(e -> {
-            gameManager.restart();
-            updatePlayerHands(gameManager.getPlayerHand());
-            updateDealerHands(gameManager.getDealerHand(),false);
-            haveFinish=false;
-            resultLabel.setText("新しいゲームを開始");
+            gameManager.finishGame(gameManager.getResult());
         });
     }
 
@@ -173,12 +175,21 @@ public class GUI {
         JButton retryButton = new JButton("もう一度プレイ");
         JButton exitButton = new JButton("終了");
 
+        
+
         retryButton.addActionListener(e -> {
             frame.getContentPane().removeAll();
             frame.add(gamePanel); // ゲーム画面に戻す
             frame.revalidate();
             frame.repaint();
-            gameManager.startNewGame(); // 新しいゲーム開始
+            
+            gameManager.restart(); // ゲームロジックを初期化
+
+            // ★ 再描画・再表示（追加）
+            updatePlayerHands(gameManager.getPlayerHand());
+            updateDealerHands(gameManager.getDealerHand(), false);
+            resultLabel.setText("新しいゲームを開始");
+            haveFinish = false;
         });
 
         exitButton.addActionListener(e -> System.exit(0));
@@ -192,6 +203,6 @@ public class GUI {
         frame.getContentPane().removeAll();
         frame.add(endPanel, BorderLayout.CENTER);
         frame.revalidate();
-        rame.repaint();
+        frame.repaint();
     } 
 }

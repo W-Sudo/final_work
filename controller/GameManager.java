@@ -19,11 +19,12 @@ public class GameManager {
     //コンストラクタで他クラスのインスタンスを生成
     public GameManager(){
         deck = new Deck();
+        chip = new Chip();
         player = new Player(deck);
         dealer = new Dealer(deck);
-        startGame();
+        
         gui = new GUI(this);
-        chip = new Chip();
+        
     }
 
     //ゲーム開始の処理
@@ -35,7 +36,6 @@ public class GameManager {
         player.hit();
         dealer.hit();
         dealer.hit();
-
     }
 
     //プレイヤーがhitしたときの処理
@@ -101,4 +101,13 @@ public class GameManager {
         return judgeWinner();
     }
 
+    public void setGUI(GUI gui) {
+       this.gui = gui;
+    }
+
+    public void finishGame(String resultText) {
+        if (gui != null) {
+            gui.showEndScreen(resultText);
+        }
+    }
 }
