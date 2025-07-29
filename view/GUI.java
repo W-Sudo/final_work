@@ -1,6 +1,5 @@
 package view;
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -15,9 +14,9 @@ public class GUI {
     private JLabel resultLabel;
     private JButton hitButton, standButton, retryButton;
     private GameManager gameManager;
-    boolean haveFinish=false;
-    String p_s="Player hands :";
-    String d_s="Dealer hands :";
+    private boolean haveFinish=false;
+    private final String p_s="Player hands :";
+    private final String d_s="Dealer hands :";
 
     public GUI(GameManager manager) {
         this.gameManager = manager;
@@ -59,12 +58,13 @@ public class GUI {
 
         // ボタン動作設定
         setupActionListeners();
-        //updateHands();
-
+        
         frame.setVisible(true);
     }
 
+    //ボタン処理
     private void setupActionListeners() {
+        //hitボタン処理
         hitButton.addActionListener(e -> {
             if(!haveFinish){
                 gameManager.playerHit();
@@ -76,6 +76,7 @@ public class GUI {
             }
         });
 
+        //standボタン処理
         standButton.addActionListener(e -> {
             gameManager.playerStand();
             if(!haveFinish){
@@ -86,8 +87,6 @@ public class GUI {
         });
 
         retryButton.addActionListener(e -> {
-            p_s="Player hands :";
-            d_s="Dealer hands :";
             gameManager.restart();
             updatePlayerHands(gameManager.getPlayerHand());
             updateDealerHands(gameManager.getDealerHand(),false);
@@ -96,11 +95,11 @@ public class GUI {
         });
     }
 
-    // 手札表示更新
+    // プレイヤーの手札表示更新
     public void updatePlayerHands(ArrayList<Card> c) {
         StringBuilder sb = new StringBuilder();
         sb.append("<html>"+p_s);
-
+        
         // 操作によって色付きの行を追加
         for(int i=0;i<c.size();i++){
             if(c.get(i).getMark()=="heart"||c.get(i).getMark()=="diamond"){
@@ -112,6 +111,8 @@ public class GUI {
         sb.append("</html>");
         playerHandLabel.setText(sb.toString());
     }
+
+    // ディーラーの手札表示更新
     public void updateDealerHands(ArrayList<Card> c,boolean haveStand) {
         StringBuilder sb = new StringBuilder();
         sb.append("<html>"+d_s);
@@ -133,6 +134,8 @@ public class GUI {
         }
         dealerHandLabel.setText(sb.toString());
     }
+
+    //結果の表示
     public void showResult() {
         resultLabel.setText(gameManager.getResult());
     }

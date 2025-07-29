@@ -4,7 +4,9 @@ import java.util.*;
 public class Deck{
     private int n = 52;
     private final Card[] deck = new Card[n];//山札の宣言
-    public Deck(){//フィッシャー・イェーツのシャッフルを用いた初期化
+
+    //フィッシャー・イェーツのシャッフルを用いた初期化
+    public Deck(){
         int[] arr = new int[n];
 
         for (int i = 0; i < n; i++) {
@@ -21,11 +23,15 @@ public class Deck{
             deck[i]=new Card(arr[i]);
         }
     }
-    public Card drawCard(){//カードが引かれたときの処理
+
+    //カードが引かれたときの処理
+    public Card drawCard(){
         n=n-1;
         return deck[n];
     }
-    public Deck reset(){//リセット処理
+
+    //リセット処理
+    public Deck reset(){
         Deck new_deck = new Deck();
         return new_deck;
     }

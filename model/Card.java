@@ -4,7 +4,9 @@ public class Card{
     private int value;//カードの数値
     private String mark;//カードのマーク
     private int n;//識別用の数字
-    public Card(int n0){//識別番号から変数を初期化する処理
+
+    //識別番号から変数を初期化する処理
+    public Card(int n0){
         n=n0;
         value=n/4+1;
         switch (n % 4) {
@@ -14,16 +16,24 @@ public class Card{
             case 3: this.mark = "heart"; break;
         }
     }
-    public int getValue(){//値のゲッターメソッド
+
+    //値のゲッターメソッド
+    public int getValue(){
         return value;
     }
-    public String getMark(){//マークのゲッターメソッド
+
+    //マークのゲッターメソッド
+    public String getMark(){
         return mark;
     }
-    public int getN(){//GUIのために識別番号を得るゲッターメソッド
+
+    //GUIのために識別番号を得るゲッターメソッド
+    public int getN(){
         return n;
     }
-    public String toString(){//GUIのためマークと値をまとめて文字列にして返すメソッド
+
+    //GUIのためマークと値をまとめて文字列にして返すメソッド
+    public String toString(){
         String markGUI;
         if(this.mark.equals("spade")){
             markGUI="♠";

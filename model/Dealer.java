@@ -1,6 +1,7 @@
 package model;
 import java.util.*;
 
+//Playerクラスから継承
 public class Dealer extends Player{
     public Dealer(Deck deck){
         super(deck);
