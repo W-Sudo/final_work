@@ -18,6 +18,8 @@ public class GUI {
     private final String p_s="Player hands :";
     private final String d_s="Dealer hands :";
     private JPanel startPanel;
+    private JPanel endPanel;
+
 
     public GUI(GameManager manager) {
         this.gameManager = manager;
@@ -161,4 +163,35 @@ public class GUI {
     public void showResult() {
         resultLabel.setText(gameManager.getResult());
     }
+
+    public void showEndScreen(String resultText) {
+        endPanel = new JPanel(new BorderLayout());
+        JLabel resultLabel = new JLabel(resultText, SwingConstants.CENTER);
+        resultLabel.setFont(new Font("SansSerif", Font.BOLD, 22));
+
+        JPanel buttonPanel = new JPanel();
+        JButton retryButton = new JButton("もう一度プレイ");
+        JButton exitButton = new JButton("終了");
+
+        retryButton.addActionListener(e -> {
+            frame.getContentPane().removeAll();
+            frame.add(gamePanel); // ゲーム画面に戻す
+            frame.revalidate();
+            frame.repaint();
+            gameManager.startNewGame(); // 新しいゲーム開始
+        });
+
+        exitButton.addActionListener(e -> System.exit(0));
+
+        buttonPanel.add(retryButton);
+        buttonPanel.add(exitButton);
+
+        endPanel.add(resultLabel, BorderLayout.CENTER);
+        endPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        frame.getContentPane().removeAll();
+        frame.add(endPanel, BorderLayout.CENTER);
+        frame.revalidate();
+        rame.repaint();
+    } 
 }
