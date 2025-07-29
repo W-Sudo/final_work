@@ -168,8 +168,8 @@ public class GUI {
         resultLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
 
         JPanel buttonPanel = new JPanel();
-        JButton retryButton = new JButton("もう一度プレイ");
-        JButton exitButton = new JButton("終了");
+        JButton retryButton = new JButton("Retry");
+        JButton exitButton = new JButton("Finish");
 
         retryButton.addActionListener(e -> {
             // ゲームロジックを初期化
