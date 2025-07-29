@@ -69,7 +69,7 @@ public class GUI {
         gamePanel = new JPanel(new BorderLayout());
 
        // タイトル表示（ゲーム状況）
-       resultLabel = new JLabel("ゲーム開始", SwingConstants.CENTER);
+       resultLabel = new JLabel("Game Start", SwingConstants.CENTER);
        resultLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
        gamePanel.add(resultLabel, BorderLayout.NORTH);
 
@@ -172,8 +172,8 @@ public class GUI {
         resultLabel.setFont(new Font("SansSerif", Font.BOLD, 22));
 
         JPanel buttonPanel = new JPanel();
-        JButton retryButton = new JButton("もう一度プレイ");
-        JButton exitButton = new JButton("終了");
+        JButton retryButton = new JButton("Retry");
+        JButton exitButton = new JButton("Finish");
 
         
 
