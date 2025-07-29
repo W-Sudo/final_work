@@ -167,9 +167,9 @@ public class GUI {
 
     public void showEndScreen(String resultText) {
         endPanel = new JPanel(new BorderLayout());
+        JLabel resultLabel = new JLabel(resultText, SwingConstants.CENTER);
+        resultLabel.setFont(new Font("SansSerif", Font.BOLD, 22));
 
-        resultLabel.setText(resultText); 
-        
         JPanel buttonPanel = new JPanel();
         JButton retryButton = new JButton("Retry");
         JButton exitButton = new JButton("Finish");
@@ -181,7 +181,7 @@ public class GUI {
             frame.repaint();
             
             gameManager.restart(); // ゲームロジックを初期化
-
+            
             // ★ 再描画・再表示（追加）
             updatePlayerHands(gameManager.getPlayerHand());
             updateDealerHands(gameManager.getDealerHand(), false);
