@@ -47,7 +47,7 @@ public class GUI {
         startPanel.setLayout(new BorderLayout());
         JLabel titleLabel = new JLabel("Wellcome to Blackjack!!", SwingConstants.CENTER);
         titleLabel.setFont(new Font("SansSerif", Font.BOLD, 24));
-        JButton startButton = new JButton("ゲームスタート");
+        JButton startButton = new JButton("Game Start");
 
         startButton.addActionListener(e -> {
             frame.getContentPane().removeAll();
