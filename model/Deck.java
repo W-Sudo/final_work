@@ -4,11 +4,9 @@ import java.util.*;
 public class Deck{
     private int n = 52;
     private final Card[] deck = new Card[n];//山札の宣言
-
     //フィッシャー・イェーツのシャッフルを用いた初期化
     public Deck(){
         int[] arr = new int[n];
-
         for (int i = 0; i < n; i++) {
             arr[i] = i;
         }
@@ -23,13 +21,11 @@ public class Deck{
             deck[i]=new Card(arr[i]);
         }
     }
-
     //カードが引かれたときの処理
     public Card drawCard(){
         n=n-1;
         return deck[n];
     }
-
     //リセット処理
     public Deck reset(){
         Deck new_deck = new Deck();

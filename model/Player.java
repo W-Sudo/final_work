@@ -9,8 +9,7 @@ public class Player {
     private ArrayList<Card> hands = new ArrayList<>();//手札
     protected int score=0; //手札の合計
     protected boolean haveA=false; //Aを入手したかを見る変数
-    protected boolean convA=false; //Aが1として計算されたかを見る変数
-    
+    protected boolean convA=false; //Aが1として計算されたかを見る変数  
     //スコア計算を行うメソッド
     public void calcScore(Card c){
         if(!haveA&&c.getValue()==1){ //Aを入手したときの手札計算
@@ -26,28 +25,23 @@ public class Player {
             convA=true;
         }
     }
-
     //バーストしたかを返す処理
     public boolean isBurst(){
         return score>21;
     }
-
     //カードを引く処理
     public void hit(){
         hands.add(deck.drawCard());
         calcScore(hands.get(hands.size()-1));
     }
-
     //手札情報に関するゲッターメソッド
     public ArrayList<Card> getCard(){
         return hands;
     }
-
     //スコアのゲッターメソッド
     public int getScore(){
         return score;
     }
-
     //リセット処理
     public Player reset(Deck new_deck){
         Player reset = new Player(new_deck);

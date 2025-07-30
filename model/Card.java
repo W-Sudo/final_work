@@ -4,7 +4,6 @@ public class Card{
     private int value;//カードの数値
     private String mark;//カードのマーク
     private int n;//識別用の数字
-
     //識別番号から変数を初期化する処理
     public Card(int n0){
         n=n0;
@@ -16,22 +15,18 @@ public class Card{
             case 3: this.mark = "heart"; break;
         }
     }
-
     //値のゲッターメソッド
     public int getValue(){
         return value;
     }
-
     //マークのゲッターメソッド
     public String getMark(){
         return mark;
     }
-
     //GUIのために識別番号を得るゲッターメソッド
     public int getN(){
         return n;
     }
-
     //GUIのためマークと値をまとめて文字列にして返すメソッド
     public String toString(){
         String markGUI;
