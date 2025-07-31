@@ -90,7 +90,7 @@ public class GameManager {
         return dealer.getCard();
     }
     //プレイヤーの手札がバーストしたかを判断するメソッド
-    public boolean isPlayerBusted(){
+    public boolean isPlayerBursted(){
         return player.isBurst();
     }
     //勝敗結果のゲッターメソッド
