@@ -147,7 +147,7 @@ public class GUI {
                 gameManager.playerHit();
                 updatePlayerHands(gameManager.getPlayerHand());
             }
-            if (gameManager.isPlayerBusted()) {
+            if (gameManager.isPlayerBursted()) {
                 haveFinish=true;
                  gameManager.finishGame(gameManager.getResult());
             }
@@ -168,7 +168,7 @@ public class GUI {
                 gameManager.playerHit();
                 updatePlayerHands(gameManager.getPlayerHand());
             }
-            if (gameManager.isPlayerBusted()) {
+            if (gameManager.isPlayerBursted()) {
                 haveFinish=true;
                 gameManager.finishGame(gameManager.getResult());
             }
